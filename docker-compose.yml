@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    command:
+     - --config.file=/opt/conf/prometheus.yml
+    volumes:
+      - type: bind
+        source: ./conf/prometheus
+        target: /opt/conf
+
+  pushgateway:
+    image: prom/pushgateway
+    ports:
+      - "9091:9091"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./conf/grafana/provisioning
+        target: /etc/grafana/provisioning
+      - type: bind
+        source: ./conf/grafana/grafana.ini
+        target: /etc/grafana/grafana.ini
+    environment:
+      - GR_ADMIN_USER=${GR_ADMIN_USER:-admin}
+      - GR_ADMIN_PW=${GR_ADMIN_PW:-password123}
