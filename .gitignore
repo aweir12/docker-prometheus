@@ -1,2 +1,4 @@
 .DS_Store
-data/prometheus/
+data/prometheus/lock
+data/prometheus/queries.active
+data/prometheus/wal
