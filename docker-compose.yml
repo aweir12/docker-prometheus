@@ -12,6 +12,9 @@ services:
       - type: bind
         source: ./conf/prometheus
         target: /opt/conf
+      - type: bind
+        source: ./data/prometheus
+        target: /prometheus/data
 
   pushgateway:
     image: prom/pushgateway
@@ -32,3 +35,4 @@ services:
     environment:
       - GR_ADMIN_USER=${GR_ADMIN_USER:-admin}
       - GR_ADMIN_PW=${GR_ADMIN_PW:-password123}
+      - GF_INSTALL_PLUGINS=${GF_INSTALL_PLUGINS:-yesoreyeram-boomtable-panel}
